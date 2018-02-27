@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <curses.h>
 #include <unistd.h>
-#inclue <sys/ioctl.h>
+#include <sys/ioctl.h>
 
 int
 main (void)
