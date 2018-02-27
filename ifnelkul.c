@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include <curses.h>
 #include <unistd.h>
+#inclue <sys/ioctl.h>
 
 int
 main (void)
 {
     int xj = 0, xk = 0, yj = 0, yk = 0;
-    int mx = 80 * 2, my = 24 * 2;
+    int mx, my;
+    struct winsize size;
 
     WINDOW *ablak;
     ablak = initscr ();
@@ -17,6 +19,7 @@ main (void)
 
     for (;;)
     {
+        ioctl(STDOUT_FILENO, TIOCGWINSZ, &size)
         xj = (xj - 1) % mx;
         xk = (xk + 1) % mx;
 
@@ -25,10 +28,9 @@ main (void)
 
         clear ();
 
-        mvprintw (0, 0,
-                  "--------------------------------------------------------------------------------");
-        mvprintw (24, 0,
-                  "--------------------------------------------------------------------------------");
+        for( int i=0; i < mx - 1; ++){
+        mvprintw (0, i, "-");
+        mvprintw (my/2, i, "-");
         mvprintw (abs ((yj + (my - yk)) / 2),
                   abs ((xj + (mx - xk)) / 2), "X");
 
